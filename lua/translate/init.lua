@@ -12,7 +12,7 @@ function M.setup(opt)
     local conf = vim.tbl_deep_extend("force", default_config, opt or {})
     vim.print("合并后的配置：")
     vim.print(conf)
-    core.mappings()
+    core.mappings(conf)
 end
 
 return M

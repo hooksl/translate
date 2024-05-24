@@ -1,8 +1,7 @@
 return {
     keymaps = {
-        ['tt'] = "local_translation",
-        ['to'] = "online_translation",
-        ['ts'] = "xxxx",
-        -- ['ts'] = "sound",
+        ['<leader>tt'] = "local_translation",
+        ['<leader>to'] = "online_translation",
+        ['<leader>ts'] = "sound",
     }
 }

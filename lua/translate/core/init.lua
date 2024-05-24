@@ -76,10 +76,20 @@ function M.floatwin(otps)
     vim.api.nvim_buf_set_keymap(f_buf, 'n', '<esc>', ":close<CR>", opts)
 end
 
-function M.mappings()
-    vim.keymap.set({ 'n', 'v' }, 'tt', function() M.floatwin(" ") end, opts)
-    vim.keymap.set({ 'n', 'v' }, 'to', function() M.floatwin("onlive") end, opts)
-    vim.keymap.set({ 'n', 'v' }, 'ts', function() M.floatwin("sp") end, opts)
+function M.mappings(opt)
+    -- vim.print("keymap.tt:")
+    -- vim.print(opt.keymaps.tt)
+    for key, value in pairs(opt.keymaps) do
+        if value == "local_translation" then
+            vim.keymap.set({ 'n', 'v' }, key, function() M.floatwin(" ") end, opts)
+        end
+        if value == "online_translation" then
+            vim.keymap.set({ 'n', 'v' }, key, function() M.floatwin("onlive") end, opts)
+        end
+        if value == "sound" then
+            vim.keymap.set({ 'n', 'v' }, key, function() M.floatwin("sp") end, opts)
+        end
+    end
 end
 
 return M
