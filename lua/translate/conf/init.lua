@@ -1,7 +1,8 @@
 return {
-    color = "red",
-    style = {
-        bold = true,
-        italic = true
+    keymaps = {
+        ['tt'] = "local_translation",
+        ['to'] = "online_translation",
+        ['ts'] = "xxxx",
+        -- ['ts'] = "sound",
     }
 }
