@@ -1,6 +1,6 @@
-local default_config = require("fanyi.conf")
-local core = require("fanyi.core")
-local test = require("fanyi.test")
+local default_config = require("translate.conf")
+local core = require("translate.core")
+local test = require("translate.test")
 local M = {}
 test.begin()
 M.info = "hello lua"
