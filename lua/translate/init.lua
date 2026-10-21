@@ -1,18 +1,21 @@
-local default_config = require("translate.conf")
+local config = require("translate.config")
 local core = require("translate.core")
-local test = require("translate.test")
+
 local M = {}
-test.begin()
-function M.setup(opt)
-    -- vim.notify("setup run")
-    -- vim.print("默认配置：")
-    -- vim.print(default_config)
-    -- vim.print("传递参数：")
-    -- vim.print(opt)
-    local conf = vim.tbl_deep_extend("force", default_config, opt or {})
-    -- vim.print("合并后的配置：")
-    -- vim.print(conf)
-    core.mappings(conf)
+
+function M.setup(opts)
+    config.setup(opts)
+    core.set_keymaps(config.options.keymaps)
+end
+
+--- Translate arbitrary text. engine: "local" | "online" | "sound" (optional)
+function M.translate(text, engine)
+    core.translate(text, engine)
+end
+
+--- Translate the word under the cursor / the visual selection.
+function M.translate_cursor(engine)
+    core.translate(core.get_text(), engine)
 end
 
 return M

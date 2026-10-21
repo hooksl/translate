@@ -1,0 +1,72 @@
+*translate.txt*  Translate words and selections in Neovim
+
+==============================================================================
+CONTENTS                                                   *translate-contents*
+
+  1. Introduction ............................ |translate-introduction|
+  2. Requirements ............................ |translate-requirements|
+  3. Setup ................................... |translate-setup|
+  4. Commands ................................ |translate-commands|
+  5. Lua API ................................. |translate-api|
+
+==============================================================================
+1. INTRODUCTION                                        *translate-introduction*
+
+translate.nvim translates the word under the cursor or the visual selection
+and shows the result in a floating window. Engines:
+
+  local   offline lookup with `sdcv` and StarDict dictionaries
+  online  online translation with translate-shell (`trans`)
+  sound   like online, and reads the text aloud
+
+Text containing CJK characters is translated to English, other text to
+Chinese. Press `q` or <Esc> to close the window.
+
+==============================================================================
+2. REQUIREMENTS                                        *translate-requirements*
+
+  - Neovim 0.10 or newer
+  - `sdcv` for the local engine, dictionaries in ~/.stardict/dic/
+  - `trans` (translate-shell) for the online and sound engines
+
+Run |:checkhealth| translate to check them.
+
+==============================================================================
+3. SETUP                                                      *translate-setup*
+
+Defaults: >lua
+    require("translate").setup({
+        default_engine = "local",   -- "local" | "online" | "sound"
+        proxy = nil,                -- e.g. "127.0.0.1:7890"
+        languages = { to_zh = "zh", to_en = "en" },
+        commands = { sdcv = "sdcv", trans = "trans" },
+        window = { max_width = 80, max_height = 20, border = "rounded" },
+        keymaps = {},
+    })
+<
+Keymaps map a key to an action, for normal and visual mode: >lua
+    keymaps = {
+        ["<leader>tt"] = "local_translation",
+        ["<leader>to"] = "online_translation",
+        ["<leader>ts"] = "sound",
+    }
+<
+==============================================================================
+4. COMMANDS                                                *translate-commands*
+
+                                                                  *:Translate*
+:[range]Translate [engine] [text]
+    Translate {text}, the [range] (or visual selection), or the word under
+    the cursor. [engine] is one of `local`, `online`, `sound`; when omitted
+    `default_engine` is used.
+
+==============================================================================
+5. LUA API                                                      *translate-api*
+
+translate.translate({text}, {engine})                  *translate.translate()*
+    Translate {text}. {engine} is optional.
+
+translate.translate_cursor({engine})            *translate.translate_cursor()*
+    Translate the word under the cursor or the current visual selection.
+
+ vim:tw=78:ts=8:ft=help:norl:
